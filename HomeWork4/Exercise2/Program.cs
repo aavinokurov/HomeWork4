@@ -40,7 +40,7 @@ namespace Exercise2
                     else
                     {
                         trianglePascal[i][j] = trianglePascal[i - 1][j - 1] + trianglePascal[i - 1][j]; // Если это не крайний элемент, то он равен сумме 
-                                                                                                            // двух расположенных над ним чисел
+                                                                                                        // двух расположенных над ним чисел
                     }
 
                     Console.Write($"{trianglePascal[i][j], 3}"); // Вывод значения в консоль
