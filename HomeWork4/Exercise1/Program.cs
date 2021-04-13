@@ -48,43 +48,31 @@ namespace Exercise1
             Console.WriteLine($"Месяцев с положительной прибылью: {countPositiveProfit}"); // Вывод кол-во месяцев с положительной прибылью
 
             Console.WriteLine("Месяцы с наименьшей прибылью: "); // Вывод таблицы трех месяцев с наименьшей прибылью
-            Console.WriteLine($"{"Месяц",10}|{"Прибыль",10}|"); // Вывод шапки таблицы
+            Console.WriteLine($"{"Месяц",10}|{"Доход",10}|{"Расход",10}|{"Прибыль",10}|"); // Вывод шапки таблицы
 
             Array.Sort(profit); // Отсортировать массив прибыли
 
-            int[,] leastProfit = new int[3, 2]; // Таблица с наименьшей прибылью
-            int indexLeastProfit = 0; // Счетчик для таблицы с наименьшей прибылью
+            int indexLeastProfit = 0; // Кол-во значений с наименьшей прибылью
 
             for (int i = 0; i < profit.Length; i++) // Формирование таблицы с наименьшей прибылью
             {
-                if (i == 0) // Первое значение таблицы
+                if (i != 0 && profit[i-1] == profit[i]) // Если текущее значение равно предыдущему, то пропускаем его
                 {
-                    leastProfit[indexLeastProfit, 1] = profit[i];
-                    indexLeastProfit++;
+                    continue;
                 }
-                else // Последующие
+
+                for (int j = 0; j < financeTable.GetLength(0); j++) // Ищем текущее значение прибыли в таблицы и выводим
                 {
-                    if(leastProfit[indexLeastProfit - 1, 1] != profit[i]) // Убираем повторы
+                    if (profit[i] == financeTable[j, 3])
                     {
-                        leastProfit[indexLeastProfit, 1] = profit[i]; 
-                        indexLeastProfit++;
+                        Console.WriteLine($"{j + 1,10}|{financeTable[j, 1],10}|{financeTable[j, 2],10}|{profit[i],10}|");
+                        break;
                     }
                 }
 
-                if (leastProfit[indexLeastProfit - 1, 0] == 0) // Если месяц не задан
-                {
-                    for (int k = 0; k < financeTable.GetLength(0); k++) // Ищем месяц с соответствующей прибылью
-                    {
-                        if (leastProfit[indexLeastProfit - 1, 1] == financeTable[k, 3])
-                        {
-                            leastProfit[indexLeastProfit - 1, 0] = k + 1;
-                            Console.WriteLine($"{leastProfit[indexLeastProfit - 1, 0],10}|{leastProfit[indexLeastProfit - 1, 1],10}|");
-                            break;
-                        }
-                    }
-                }
+                indexLeastProfit++; // Увеличиваем счетчик строк
 
-                if (indexLeastProfit == leastProfit.GetLength(0)) // Если таблица заполненан, то прекращаем цикл
+                if (indexLeastProfit == 3) // Если в таблице три строки заканчиваем цикл
                 {
                     break;
                 }

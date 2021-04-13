@@ -10,54 +10,62 @@ namespace Exercise3
     {
         static void Main(string[] args)
         {
-            int row; // Кол-во строк
-            int column; // Кол-во столбцов
+            Random rnd = new Random(); // Генератор случайных чисел
+            int row1; // Кол-во строк первой матрицы
+            int column1; // Кол-во столбцов первой матрицы
 
             do
             {
-                Console.WriteLine("Введите количество строк первой матрицы: "); // Просим пользователя ввести кол-во строк у первой матрицы
-                row = Convert.ToInt32(Console.ReadLine()); // Считываем кол-во строк с консоли
-            } while (row <= 0); // Если пользователь ввел значение меньше или равное 0
-
-            do
-            {
-                Console.WriteLine("Введите количество столбцов первой матрицы: "); // Просим пользователя ввести кол-во столбцов у первой матрицы
-                column = Convert.ToInt32(Console.ReadLine()); // Считываем кол-во столбцов с консоли
-            } while (column <= 0); // Если пользователь ввел значение меньше или равное 0
-
-            int[,] matrixA = new int[row, column]; // Первая матрица
-
-            for (int i = 0; i < matrixA.GetLength(0); i++) // Инициализация элементов первой матрицы
-            {
-                for (int j = 0; j < matrixA.GetLength(1); j++)
+                do
                 {
-                    Console.WriteLine($"Введите значение для элемента а{i+1}{j+1}: "); // Просим пользователя ввести значение элемента
-                    matrixA[i, j] = Convert.ToInt32(Console.ReadLine()); // Считываем с консоли значение элемента
+                    Console.WriteLine("Введите количество строк первой матрицы: "); // Просим пользователя ввести кол-во строк у первой матрицы
+                } while (!Int32.TryParse(Console.ReadLine(), out row1)); // Преобразуем строку в целое число
+            } while (row1 <= 0); // Если пользователь ввел значение меньше или равное 0
+
+            do
+            {
+                do
+                {
+                    Console.WriteLine("Введите количество столбцов первой матрицы: "); // Просим пользователя ввести кол-во столбцов у первой матрицы
+                } while (!Int32.TryParse(Console.ReadLine(), out column1)); // Преобразуем строку в целое число
+            } while (column1 <= 0); // Если пользователь ввел значение меньше или равное 0
+
+            int[,] matrixA = new int[row1, column1]; // Первая матрица
+
+            for (int i = 0; i < row1; i++) // Инициализация элементов первой матрицы случайными числами от 0 до 9
+            {
+                for (int j = 0; j < column1; j++)
+                {
+                    matrixA[i, j] = rnd.Next(10);
                 }
             }
 
-            Console.Clear(); // Очистить консоль от предыдущих значений
+            int row2; // Кол-во строк первой матрицы
+            int column2; // Кол-во столбцов первой матрицы
 
             do
             {
-                Console.WriteLine("Введите количество строк второй матрицы: "); // Просим пользователя ввести кол-во строк у второй матрицы
-                row = Convert.ToInt32(Console.ReadLine()); // Считываем кол-во строк с консоли
-            } while (row <= 0); // Если пользователь ввел значение меньше или равное 0
-
-            do
-            {
-                Console.WriteLine("Введите количество столбцов второй матрицы: "); // Просим пользователя ввести кол-во столбцов у второй матрицы
-                column = Convert.ToInt32(Console.ReadLine()); // Считываем кол-во столбцов с консоли
-            } while (column <= 0); // Если пользователь ввел значение меньше или равное 0
-
-            int[,] matrixB = new int[row, column]; // Вторая матрица
-
-            for (int i = 0; i < matrixB.GetLength(0); i++) // Инициализация элементов второй матрицы
-            {
-                for (int j = 0; j < matrixB.GetLength(1); j++)
+                do
                 {
-                    Console.WriteLine($"Введите значение для элемента b{i + 1}{j + 1}: "); // Просим пользователя ввести значение элемента
-                    matrixB[i, j] = Convert.ToInt32(Console.ReadLine()); // Считываем с консоли значение элемента
+                    Console.WriteLine("Введите количество строк второй матрицы: "); // Просим пользователя ввести кол-во строк у второй матрицы
+                } while (!Int32.TryParse(Console.ReadLine(), out row2)); // Преобразуем строку в целое число
+            } while (row2 <= 0); // Если пользователь ввел значение меньше или равное 0
+
+            do
+            {
+                do
+                {
+                    Console.WriteLine("Введите количество столбцов второй матрицы: "); // Просим пользователя ввести кол-во столбцов у второй матрицы
+                } while (!Int32.TryParse(Console.ReadLine(), out column2)); // Преобразуем строку в целое число
+            } while (column2 <= 0); // Если пользователь ввел значение меньше или равное 0
+
+            int[,] matrixB = new int[row2, column2]; // Вторая матрица
+
+            for (int i = 0; i < row2; i++) // Инициализация элементов второй матрицы случайными числами от 0 до 9
+            {
+                for (int j = 0; j < column2; j++)
+                {
+                    matrixB[i, j] = rnd.Next(10);
                 }
             }
 
@@ -69,9 +77,9 @@ namespace Exercise3
 
                 Console.WriteLine("Матрицы А:");
 
-                for (int i = 0; i < matrixA.GetLength(0); i++) // Вывод в консоль матрицы А
+                for (int i = 0; i < row1; i++) // Вывод в консоль матрицы А
                 {
-                    for (int j = 0; j < matrixA.GetLength(1); j++)
+                    for (int j = 0; j < column1; j++)
                     {
                         Console.Write($"{matrixA[i, j],3}");
                     }
@@ -80,9 +88,9 @@ namespace Exercise3
 
                 Console.WriteLine("Матрицы B:");
 
-                for (int i = 0; i < matrixB.GetLength(0); i++) // Вывод в консоль матрицы B
+                for (int i = 0; i < row2; i++) // Вывод в консоль матрицы B
                 {
-                    for (int j = 0; j < matrixB.GetLength(1); j++)
+                    for (int j = 0; j < column2; j++)
                     {
                         Console.Write($"{matrixB[i, j],3}");
                     }
@@ -96,9 +104,11 @@ namespace Exercise3
                                   "4 - Выход");
 
                 do
-                {
-                    Console.WriteLine("Введите номер операции: ");
-                    numOperation = Convert.ToInt32(Console.ReadLine()); // Считываем номер операции
+                {                  
+                    do
+                    {
+                        Console.WriteLine("Введите номер операции: ");
+                    } while (!Int32.TryParse(Console.ReadLine(), out numOperation)); // Считываем номер операции
                 } while (numOperation < 1 || numOperation > 4); // Если пользователь ввел номер операции неправильно
 
                 Console.Clear(); // Очистить консоль от предыдущих значений
@@ -117,8 +127,11 @@ namespace Exercise3
                             nameMatrix = Console.ReadLine(); // Считываем выбор пользователя
                         } while (nameMatrix != "A" && nameMatrix != "B"); // Если пользовател ввел название матрицы неправильно
 
-                        Console.WriteLine("Введите число для умножения:");
-                        int n = Convert.ToInt32(Console.ReadLine()); // Считываем число для умножения
+                        int n; // Число для умножения
+                        do // Считываем число для умножения
+                        {
+                            Console.WriteLine("Введите число для умножения:");
+                        } while (!Int32.TryParse(Console.ReadLine(), out n));
 
                         tempMatrix = (nameMatrix == "A") ? matrixA : matrixB; // Выбираем матрицу для операции
 
@@ -133,22 +146,22 @@ namespace Exercise3
                         }
                         break;
                     case 2: // Сложение и вычитание матриц
-                        if (matrixA.GetLength(0) == matrixB.GetLength(0) && matrixA.GetLength(1) == matrixB.GetLength(1)) // Проверяем равенство строк и столбцов первой и второй матрицы
+                        if (row1 == row2 && column1 == column2) // Проверяем равенство строк и столбцов первой и второй матрицы
                         {
-                            int isSum; // Сумма или вычитание
+                            string isSum; // Сумма или вычитание
                             do
                             {
-                                Console.WriteLine("Операция: 1 - сложение 2 - вычитание");
-                                isSum = Convert.ToInt32(Console.ReadLine()); // Считываем значение
-                            } while (isSum < 1 || isSum > 2); // Если пользователь ввел неправильное значения
+                                Console.WriteLine("Операция: \"+\" - сложение \"-\" - вычитание");
+                                isSum = Console.ReadLine(); // Считываем значение
+                            } while (isSum != "+" && isSum != "-"); // Если пользователь ввел неправильное значения
 
-                            tempMatrix = new int[matrixA.GetLength(0), matrixA.GetLength(1)]; // Первое слагаемое
+                            tempMatrix = new int[row1, column1]; // Первое слагаемое
 
-                            for (int i = 0; i < tempMatrix.GetLength(0); i++) // Выполнение операции и вывод в консоль
+                            for (int i = 0; i < row1; i++) // Выполнение операции и вывод в консоль
                             {
-                                for (int j = 0; j < tempMatrix.GetLength(1); j++)
+                                for (int j = 0; j < column1; j++)
                                 {
-                                    tempMatrix[i, j] = matrixA[i, j] + ((isSum == 1) ? 1 : -1) * matrixB[i, j];
+                                    tempMatrix[i, j] = matrixA[i, j] + ((isSum == "+") ? 1 : -1) * matrixB[i, j];
                                     Console.Write($"{tempMatrix[i, j],3}");
                                 }
                                 Console.WriteLine();
@@ -161,15 +174,15 @@ namespace Exercise3
                         }
                         break;
                     case 3: // Умножение двух матриц
-                        if (matrixA.GetLength(1) == matrixB.GetLength(0)) // Проверяем условие равенства стобцов первой матрицы и строк второй матрицы
+                        if (column1 == row2) // Проверяем условие равенства стобцов первой матрицы и строк второй матрицы
                         {
-                            tempMatrix = new int[matrixA.GetLength(0), matrixB.GetLength(1)]; // Задаем размерность результирующей матрицы
+                            tempMatrix = new int[row1, column2]; // Задаем размерность результирующей матрицы
 
-                            for (int i = 0; i < tempMatrix.GetLength(0); i++) // Заполняем матрицу элементами и выводим
+                            for (int i = 0; i < row1; i++) // Заполняем матрицу элементами и выводим
                             {
-                                for (int j = 0; j < tempMatrix.GetLength(1); j++)
+                                for (int j = 0; j < column2; j++)
                                 {
-                                    for (int k = 0; k < matrixA.GetLength(1); k++)
+                                    for (int k = 0; k < column1; k++)
                                     {
                                         tempMatrix[i, j] += matrixA[i, k] * matrixB[k, j];
                                     }
