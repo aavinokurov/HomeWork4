@@ -17,16 +17,19 @@ namespace Exercise1
             int countPositiveProfit = 0; // Кол-во месяцев с положительной прибылью
 
             int[] profit = new int[12]; // Массив с прибылью
+            int[] month = new int[12]; // Массив месяцев
 
             Console.WriteLine($"{"Месяц",10}|{"Доход",10}|{"Расход",10}|{"Прибыль",10}|"); // Шапка таблицы
 
-            for (int i = 0; i < financeTable.GetLength(0); i++) // Заполнение элементов массива
+            for (int i = 0; i < 12; i++) // Заполнение элементов массива
             {
                 financeTable[i, 0] = i + 1; // Месяц
 
-                financeTable[i, 1] = rnd.Next(101); // Доход за месяц. Случайное число от 0 до 100
+                month[i] = financeTable[i, 0]; // Добавление в массив с месяцами
 
-                financeTable[i, 2] = rnd.Next(101); // Расход за месяц. Случайное число от 0 до 100
+                financeTable[i, 1] = rnd.Next(4); // Доход за месяц. Случайное число от 0 до 100
+
+                financeTable[i, 2] = rnd.Next(4); // Расход за месяц. Случайное число от 0 до 100
 
                 financeTable[i, 3] = financeTable[i, 1] - financeTable[i, 2]; // Прибыль
 
@@ -37,7 +40,7 @@ namespace Exercise1
                     countPositiveProfit++;
                 }
 
-                for (int j = 0; j < financeTable.GetLength(1); j++) // Вывод в консоль строки
+                for (int j = 0; j < 4; j++) // Вывод в консоль строки
                 {
                     Console.Write($"{financeTable[i, j], 10}|");
                 }
@@ -48,34 +51,25 @@ namespace Exercise1
             Console.WriteLine($"Месяцев с положительной прибылью: {countPositiveProfit}"); // Вывод кол-во месяцев с положительной прибылью
 
             Console.WriteLine("Месяцы с наименьшей прибылью: "); // Вывод таблицы трех месяцев с наименьшей прибылью
-            Console.WriteLine($"{"Месяц",10}|{"Доход",10}|{"Расход",10}|{"Прибыль",10}|"); // Вывод шапки таблицы
+            Console.WriteLine($"{"Месяц",10}|{"Прибыль",10}|"); // Вывод шапки таблицы
 
-            Array.Sort(profit); // Отсортировать массив прибыли
+            Array.Sort(profit, month); // Отсортировать массив прибыли
 
             int indexLeastProfit = 0; // Кол-во значений с наименьшей прибылью
 
-            for (int i = 0; i < profit.Length; i++) // Формирование таблицы с наименьшей прибылью
+            for (int i = 0; i < 12; i++) // Формирование таблицы с наименьшей прибылью
             {
-                if (i != 0 && profit[i-1] == profit[i]) // Если текущее значение равно предыдущему, то пропускаем его
+                if (i != 0 && profit[i - 1] != profit[i]) // Если текущее значение неравно предыдущему, то увеличиваем счетчик значений
                 {
-                    continue;
+                    indexLeastProfit++;
                 }
 
-                for (int j = 0; j < financeTable.GetLength(0); j++) // Ищем текущее значение прибыли в таблицы и выводим
-                {
-                    if (profit[i] == financeTable[j, 3])
-                    {
-                        Console.WriteLine($"{j + 1,10}|{financeTable[j, 1],10}|{financeTable[j, 2],10}|{profit[i],10}|");
-                        break;
-                    }
-                }
-
-                indexLeastProfit++; // Увеличиваем счетчик строк
-
-                if (indexLeastProfit == 3) // Если в таблице три строки заканчиваем цикл
+                if (indexLeastProfit == 3) // Если в таблице три значения заканчиваем цикл
                 {
                     break;
                 }
+
+                Console.WriteLine($"{month[i],10}|{profit[i],10}|"); // Вывод строки таблицы
             }
         }
     }
